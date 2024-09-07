@@ -5,7 +5,7 @@ import java.util.List;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 
-public class DozerMapp {
+public class DozerMapper {
 	
 	//conversao de entity for VO
 	private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();

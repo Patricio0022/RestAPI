@@ -1,10 +1,6 @@
 package org.rest.data.vo;
 
 import java.io.Serializable;
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public final class PersonVO implements Serializable {
 
@@ -12,53 +8,67 @@ public final class PersonVO implements Serializable {
 	
 	/*A entidade VO vai agir como intermediaria para encapsular a lógica de negócios e aumentar a segurança de forma que o client
 	não tenha conhecimento da implementação da entidade real além de reduzir o excesso de chamadas de métodos e sobrecargas*/
-	private final Long id; 
-	private final String firstName;
-	private final String lastName;
-	private final String adress;
-	private final String gender;
 
-	@JsonCreator
-	public PersonVO(@JsonProperty("firstName") Long id,
-					@JsonProperty("firstName") String firstName, 
-	                @JsonProperty("lastName") String lastName, 
-	                @JsonProperty("adress") String adress, 
-	                @JsonProperty("gender") String gender ) 
-	{	this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.adress = adress;
-		this.gender = gender;
+
+	private Long id;
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String gender;
+	
+	public PersonVO() {}
+
+	public Long getId() {
+		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getFirstName() {
 		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
 		return lastName;
 	}
 
-	public String getAdress() {
-		return adress;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public Long getId() {
-		return id;
+	public String getAddress() {
+		return address;
 	}
 
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public String getGender() {
 		return gender;
 	}
 
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(adress, firstName, gender, id, lastName);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -69,14 +79,32 @@ public final class PersonVO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		PersonVO other = (PersonVO) obj;
-		return Objects.equals(adress, other.adress) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(gender, other.gender) && Objects.equals(id, other.id)
-				&& Objects.equals(lastName, other.lastName);
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (gender == null) {
+			if (other.gender != null)
+				return false;
+		} else if (!gender.equals(other.gender))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		return true;
 	}
-
-
-	
-
-	
 	
 }
