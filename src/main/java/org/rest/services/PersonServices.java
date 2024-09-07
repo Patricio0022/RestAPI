@@ -57,8 +57,8 @@ public class PersonServices {
 	        entity.setAdress(person.getAdress());
 	        entity.setGender(person.getGender());
 	        
-	        return repository.save(person);
-	        
+	        var vo = DozerMapp.parseObject(repository.save(entity), PersonVO.class);
+	       return vo;
 	    }
 	 
 	 public void delete(Long id) { //delete
