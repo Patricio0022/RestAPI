@@ -19,7 +19,7 @@ public class PersonServices {
     private static Logger logger = LoggerFactory.getLogger(PersonServices.class);
 	
 	
-    public List<Person> findAll() { //get reading
+    public List<Person> findAll() { //get reading n
 		
 		System.out.println("find all people");
 		
