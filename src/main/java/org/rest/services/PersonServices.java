@@ -2,7 +2,9 @@ package org.rest.services;
 
 import java.util.List;
 
+import org.rest.data.vo.PersonVO;
 import org.rest.exceptions.ResourceNotFoundException;
+import org.rest.mapper.DozerMapp;
 import org.rest.model.Person;
 import org.rest.repositories.PersonRepository;
 import org.slf4j.Logger;
@@ -19,27 +21,32 @@ public class PersonServices {
     private static Logger logger = LoggerFactory.getLogger(PersonServices.class);
 	
 	
-    public List<Person> findAll() { //get reading n
+    public List<PersonVO> findAll() { //get reading n
 		
 		System.out.println("find all people");
 		
-		return repository.findAll();
+		return DozerMapp.parseListObjects(repository.findAll(), PersonVO.class);
 	}
     
 	
-	public Person findById(Long id) { //get by Id
+	public PersonVO findById(Long id) { //get by Id
 		
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("not found Id") );
+		var entity = repository.findById(id).
+				orElseThrow(() -> new ResourceNotFoundException("not found Id") );
+		
+		return DozerMapp.parseObject(entity, PersonVO.class);
 	}
 	
-	public Person create(Person person) { //create
+	public PersonVO create(PersonVO person) { //create
 			
 		System.out.println("Done created new person");
 		
-		return repository.save(person);
+				var entity = DozerMapp.parseObject(person, Person.class);
+				var vo = DozerMapp.parseObject(repository.save(entity), PersonVO.class);
+				return vo;
 	}
 	
-	 public Person update(Person person) { //put
+	 public PersonVO update(PersonVO person) { //put
 	        logger.info("Updating person with ID: " + person.getId());
 	        
 	        var entity = repository.findById(person.getId())
