@@ -48,7 +48,6 @@
             <version>2.18.0</version>
         </dependency>
 
-
         <dependency>
             <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-core</artifactId>
