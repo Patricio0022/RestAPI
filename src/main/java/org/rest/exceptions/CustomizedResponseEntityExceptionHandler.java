@@ -22,7 +22,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
 				new Date(),
-				ex.getMessage(),
+				"Resource not found please check this url ;) "+ ex.getMessage(),
 				request.getDescription(false));
 		
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -34,7 +34,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
 				new Date(),
-				ex.getMessage(),
+		"Resource not found " + ex.getMessage(),
 				request.getDescription(false));
 		
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
