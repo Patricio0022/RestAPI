@@ -31,8 +31,7 @@ public final class PersonVO implements Serializable {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstName(String firstName) { this.firstName = firstName;
 	}
 
 	public String getLastName() {
