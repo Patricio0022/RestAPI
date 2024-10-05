@@ -8,7 +8,7 @@ import org.rest.exceptions.RequiredObjectIsNull;
 import org.rest.exceptions.ResourceNotFoundException;
 import org.rest.mapper.DozerMapper;
 import org.rest.model.Person;
-import org.rest.repositories.PersonRepository;
+import org.rest.repository.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
