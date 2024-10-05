@@ -14,6 +14,7 @@ import org.rest.services.PersonServices;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -23,14 +24,14 @@ import static org.mockito.Mockito.*;
 class PersonRepositoryTest {
 
     @InjectMocks
-    private PersonServices personServices;
+    private PersonServices personServices; //real injection
     @Mock
-    private PersonRepository personRepository;
+    private PersonRepository personRepository; //behavior
     @Mock
-    private DozerMapper dozerMapper;
+    private DozerMapper dozerMapper; //behavior
 
-    private Person entity;
-    private PersonVO personVO;
+    private Person entity, person2;
+    private PersonVO personVO, personVO1;
 
     @BeforeEach
     public void setUp() {
@@ -41,13 +42,28 @@ class PersonRepositoryTest {
         entity.setAdress("Alasca");
         entity.setGender("Male");
 
+        person2 = new Person();
+        person2.setId(2L);
+        person2.setFirstName("Mario");
+        person2.setLastName("Kart");
+        person2.setAdress("Cogumelo");
+        person2.setGender("Male");
+
+        personVO1 = new PersonVO();
+        personVO1.setKey(1L);
+        personVO1.setFirstName("Mario");
+        personVO1.setLastName("Kart");
+        personVO1.setAdress("Cogumelo");
+        personVO1.setGender("Male");
+
         personVO = new PersonVO();
-        personVO.setKey(1L);
+        personVO.setKey(2L);
         personVO.setFirstName("Pingu");
         personVO.setLastName("Pingado");
         personVO.setAdress("Alasca");
         personVO.setGender("Male");
     }
+
 
     @Test
     public void getAll() {
@@ -65,8 +81,29 @@ class PersonRepositoryTest {
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals("Pingu", result.get(0).getFirstName());
+        assertEquals("Pingado", result.get(0).getLastName());
+        assertEquals("Alasca", result.get(0).getAdress());
+        assertEquals("Male", result.get(0).getGender());
 
 
         verify(personRepository, times(1)).findAll();
     }
+    @Test
+    public void getById() {
+        Long idToFind = 2L;
+
+        when(personRepository.findById(idToFind)).thenReturn(Optional.of(person2));
+        when(dozerMapper.parseObject(person2, PersonVO.class)).thenReturn(personVO1);
+
+        PersonVO result = personServices.findById(idToFind);
+
+        assertNotNull(result);
+        assertEquals("Mario", result.getFirstName());
+        assertEquals("Kart", result.getLastName());
+        assertEquals("Cogumelo", result.getAdress());
+        assertEquals("Male", result.getGender());
+
+        verify(personRepository, times(1)).findById(idToFind);
+    }
+
 }
