@@ -11,6 +11,7 @@ public class DozerMapper {
 	private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 	
 	public  <O, D> D parseObject(O origin, Class<D> destination) {
+
 		return mapper.map(origin, destination);
 	}
 	
