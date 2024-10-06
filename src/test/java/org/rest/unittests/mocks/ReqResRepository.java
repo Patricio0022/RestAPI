@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.rest.data.vo.PersonVO;
 import org.rest.mapper.DozerMapper;
 import org.rest.model.Person;
-import org.rest.repositories.PersonRepository;
+import org.rest.repository.PersonRepository;
 import org.rest.services.PersonServices;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
