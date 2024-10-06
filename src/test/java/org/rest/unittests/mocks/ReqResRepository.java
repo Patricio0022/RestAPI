@@ -1,4 +1,4 @@
-package org.rest;
+package org.rest.unittests.mocks;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
