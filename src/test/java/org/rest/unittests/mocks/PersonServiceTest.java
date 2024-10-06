@@ -22,9 +22,21 @@ public class PersonServiceTest {
     PersonRepository repository;
 
     @Test
-    void testCreateWithNullPerson() {
+    void CreateWithNullPerson() {
         Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
             service.create(null);
+        });
+
+        String expectedMessage = "It is not allowed to persist a null object!";
+        String actualMessage = exception.getMessage();
+
+        assertTrue("error", actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void updateWithNullPerson() {
+        Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
+            service.update(null);
         });
 
         String expectedMessage = "It is not allowed to persist a null object!";
