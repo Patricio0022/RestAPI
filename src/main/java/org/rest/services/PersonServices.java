@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.rest.controller.PersonController;
 import org.rest.data.vo.PersonVO;
-import org.rest.exceptions.RequiredObjectIsNull;
+import org.rest.exceptions.RequiredObjectIsNullException;
 import org.rest.exceptions.ResourceNotFoundException;
 import org.rest.mapper.DozerMapper;
 import org.rest.model.Person;
@@ -49,7 +49,7 @@ public class PersonServices {
 
 	public PersonVO create(PersonVO person) {
 
-		if (person == null) throw new RequiredObjectIsNull();
+		if (person == null) throw new RequiredObjectIsNullException();
 
 		logger.info("Creating one person!");
 		var entity = dozerMapper.parseObject(person, Person.class);
@@ -60,7 +60,7 @@ public class PersonServices {
 
 	public PersonVO update(PersonVO person) {
 
-		if (person == null) throw new RequiredObjectIsNull();
+		if (person == null) throw new RequiredObjectIsNullException();
 
 		logger.info("Updating one person!");
 
