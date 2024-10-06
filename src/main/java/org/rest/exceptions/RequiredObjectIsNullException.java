@@ -8,16 +8,16 @@ import java.io.Serial;
 
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class RequiredObjectIsNullExceptionTest extends RuntimeException{
+public class RequiredObjectIsNullException extends RuntimeException{
 
 @Serial
 private static final long serialVersionUID = 1L;
 
-public RequiredObjectIsNullExceptionTest(){
+public RequiredObjectIsNullException(){
     super("its is not allowed to persist a null object");
 }
 
-public RequiredObjectIsNullExceptionTest(String ex){
+public RequiredObjectIsNullException(String ex){
     super(ex);
 }
 
