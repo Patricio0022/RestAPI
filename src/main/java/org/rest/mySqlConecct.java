@@ -10,7 +10,7 @@ public class mySqlConecct {
         Connection conn = null;
 
         try {
-            // Configurando a conexão ao banco de dados mysql
+            // Configurando a conexão manual ao banco de dados mysql
             String url = "jdbc:mysql://localhost:3306/jpacourse?useTimezone=true&serveTimezone=UTC";
             String username = "root";
             String password = "root";

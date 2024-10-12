@@ -149,6 +149,12 @@ class CrudRepositoryTest {
         result.setAdress("Sao Paulo");
         result.setGender("Male");
 
+        assertNotNull(result);
+        assertEquals("Marcos", result.getFirstName());
+        assertEquals("Vinicius", result.getLastName());
+        assertEquals("Sao Paulo", result.getAdress());
+        assertEquals("Male", result.getGender()); // ok Atualizado
+
         verify(personRepository, times(1)).findById(idToFind);
     }
 
