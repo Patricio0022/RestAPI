@@ -13,6 +13,7 @@ import org.rest.model.Person;
 import org.rest.services.PersonServices;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,8 +69,8 @@ class CrudRepositoryTest {
 
     @Test
     public void getAll() {
-        List<Person> personList = Arrays.asList(entity);
-        List<PersonVO> personVOS = Arrays.asList(personV1);
+        List<Person> personList = Collections.singletonList(entity);
+        List<PersonVO> personVOS = Collections.singletonList(personV1);
 
         // configurando o comportamento do mock
         when(personRepository.findAll()).thenReturn(personList);
