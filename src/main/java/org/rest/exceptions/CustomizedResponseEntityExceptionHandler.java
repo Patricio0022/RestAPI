@@ -14,30 +14,31 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @RestController
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler{
+	/** Exceptions genéricas, herda de ResponseEntityExceptionHandler
+	 para sobrescrever e adicionar descriçoes detalhadas na exception */
 	
 	@ExceptionHandler(Exception.class)
-	public final ResponseEntity<ExceptionResponse> handleAllExceptions(
-			Exception ex, WebRequest request) {
-		
-		
+
+	public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request) {
+
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
-				new Date(),
-				"Resource not found please check this url ;) "+ ex.getMessage(),
-				request.getDescription(false));
+			new Date(), //timeStamp
+			"Resource not found please check this url ;) "+ ex.getMessage(), //message
+			request.getDescription(false));//details
 		
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);/**  HttpStatus 500 */
 	}
 	
 	@ExceptionHandler(RequiredObjectIsNullException.class)
-	public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(
-			Exception ex, WebRequest request) {
+
+	public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(Exception ex, WebRequest request) {
 		
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
-				new Date(),
-		"Resource not found " + ex.getMessage(),
-				request.getDescription(false));
+			new Date(),//timeStamp
+			"Resource not found " + ex.getMessage(), //message
+			request.getDescription(false));//details
 		
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND); /**  HttpStatus 400 with body */
 	}
 
 }
