@@ -36,15 +36,16 @@ public class PersonController {
 	@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
 
 	//swagger
-	@Operation(summary = "Finds A Person", description = "Finds A Person", tags = {"People"}, responses = {
-		@ApiResponse(description = "Sucess", responseCode = "200",
-				content = @Content (schema = @Schema(implementation = PersonVO.class))
-		),
-		@ApiResponse(description = "Not content", responseCode = "204", content = @Content),
-		@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-		@ApiResponse(description = "Not Found", responseCode = "401", content = @Content),
-		@ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
+	@Operation(summary = "Finds A Person", description = "Finds A Person", tags = {"People"},
+		responses = {
+			@ApiResponse(description = "Sucess", responseCode = "200",
+					content = @Content (schema = @Schema(implementation = PersonVO.class))
+			),
+			@ApiResponse(description = "Not content", responseCode = "204", content = @Content),
+			@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+				@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+			@ApiResponse(description = "Not Found", responseCode = "401", content = @Content),
+			@ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
 	}
 	)
 	public List<PersonVO> findAll() {
@@ -53,17 +54,20 @@ public class PersonController {
 
 	@GetMapping(value = "/{id}",
 			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" })
-	@Operation (summary = "Find person", description = "Find Person", tags = {"Person"}, responses = {
-		@ApiResponse(description = "Sucess", responseCode = "200",
+
+	@Operation (summary = "Find person", description = "Find Person", tags = {"Person"},
+		responses = {
+			@ApiResponse(description = "Sucess", responseCode = "200",
 				content = {
-						@Content(
-								mediaType = "application/json",
-								array = @ArraySchema(schema = @Schema(implementation = PersonVO.class))
-						)
-				}), @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-			@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-			@ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
+					@Content(
+							mediaType = "application/json",
+							array = @ArraySchema(schema = @Schema(implementation = PersonVO.class))
+							)
+					}),
+				@ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+				@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+				@ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+				@ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
 
 	})
 	public PersonVO findById(@PathVariable(value = "id") Long id) {
@@ -73,6 +77,7 @@ public class PersonController {
 
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE,"application/x-yaml" } ,
 			produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE,"application/x-yaml"})
+
 	@Operation(summary = "Adds a new Person",
 			description = "Adds a new Person by passing in a JSON, XML or YML representation of the person!",
 			tags = {"People"},
@@ -92,6 +97,7 @@ public class PersonController {
 	
 	@PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE ,"application/x-yaml"} ,
 				produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE,"application/x-yaml"})
+
 	@Operation(summary = "Updates a Person",
 			description = "Updates a Person by passing in a JSON, XML or YML representation of the person!",
 			tags = {"People"},
@@ -111,6 +117,7 @@ public class PersonController {
 	
 	
 	@DeleteMapping(value = "/{id}")
+
 	@Operation(summary = "Deletes a Person",
 			description = "Deletes a Person by passing in a JSON, XML or YML representation of the person!",
 			tags = {"People"},
