@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class ExceptionResponse implements Serializable {
+	/**  {@link Exception personalizada com detalhes informativos
+	 *	 Date timestamp  -> Data e hora no body- que ocorreu
+	 *	 Message -> Description
+	 *	 Details -> detalhes sobre a requisição que causou a exception
+	 * } */
 
 	private static final long serialVersionUID = 1L;
 
