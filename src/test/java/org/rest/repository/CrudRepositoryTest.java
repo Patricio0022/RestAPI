@@ -38,34 +38,33 @@ class CrudRepositoryTest {
     public void setUp() {
         entity = new Person();
         entity.setId(1L);
-        entity.setFirstName("Pingu");
-        entity.setLastName("Pingado");
-        entity.setAdress("Alasca");
+        entity.setFirstName("John");
+        entity.setLastName("Doe");
+        entity.setAdress("New York");
         entity.setGender("Male");
 
         person2 = new Person();
         person2.setId(2L);
-        person2.setFirstName("Mario");
-        person2.setLastName("Kart");
-        person2.setAdress("Cogumelo");
+        person2.setFirstName("James");
+        person2.setLastName("Smith");
+        person2.setAdress("Los Angeles");
         person2.setGender("Male");
 
 
         personV1 = new PersonVO();
         personV1.setKey(1L);
-        personV1.setFirstName("Pingu");
-        personV1.setLastName("Pingado");
-        personV1.setAdress("Alasca");
+        personV1.setFirstName("John");
+        personV1.setLastName("Doe");
+        personV1.setAdress("New York");
         personV1.setGender("Male");
 
         personV2 = new PersonVO();
         personV2.setKey(2L);
-        personV2.setFirstName("Mario");
-        personV2.setLastName("Kart");
-        personV2.setAdress("Cogumelo");
+        personV2.setFirstName("James");
+        personV2.setLastName("Smith");
+        personV2.setAdress("Los Angeles");
         personV2.setGender("Male");
     }
-
 
     @Test
     public void getAll() {
@@ -76,20 +75,19 @@ class CrudRepositoryTest {
         when(personRepository.findAll()).thenReturn(personList);
         when(dozerMapper.parseListObjects(personList, PersonVO.class)).thenReturn(personVOS);
 
-
         List<PersonVO> result = personServices.findAll();
 
         // assert result
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals("Pingu", result.get(0).getFirstName());
-        assertEquals("Pingado", result.get(0).getLastName());
-        assertEquals("Alasca", result.get(0).getAdress());
+        assertEquals("John", result.get(0).getFirstName());
+        assertEquals("Doe", result.get(0).getLastName());
+        assertEquals("New York", result.get(0).getAdress());
         assertEquals("Male", result.get(0).getGender());
-
 
         verify(personRepository, times(1)).findAll();
     }
+
     @Test
     public void getById() {
         Long idToFind = 2L;
@@ -100,15 +98,13 @@ class CrudRepositoryTest {
         PersonVO result = personServices.findById(idToFind);
 
         assertNotNull(result);
-        assertEquals("Mario", result.getFirstName());
-        assertEquals("Kart", result.getLastName());
-        assertEquals("Cogumelo", result.getAdress());
+        assertEquals("James", result.getFirstName());
+        assertEquals("Smith", result.getLastName());
+        assertEquals("Los Angeles", result.getAdress());
         assertEquals("Male", result.getGender());
 
         verify(personRepository, times(1)).findById(idToFind);
     }
-
-
 
     @Test
     public void createEntity() {
@@ -124,13 +120,11 @@ class CrudRepositoryTest {
         when(dozerMapper.parseObject(any(Person.class), eq(PersonVO.class))).thenReturn(personV1);
         PersonVO result = personServices.create(personV1);
 
-
         assertNotNull(result);
-        assertEquals("Pingu", result.getFirstName());
-        assertEquals("Pingado", result.getLastName());
-        assertEquals("Alasca", result.getAdress());
+        assertEquals("John", result.getFirstName());
+        assertEquals("Doe", result.getLastName());
+        assertEquals("New York", result.getAdress());
         assertEquals("Male", result.getGender());
-
 
         verify(personRepository, times(1)).save(any(Person.class));
         verify(dozerMapper, times(1)).parseObject(any(PersonVO.class), eq(Person.class));
@@ -145,23 +139,16 @@ class CrudRepositoryTest {
         when(dozerMapper.parseObject(entity, PersonVO.class)).thenReturn(personV1);
 
         PersonVO result = personServices.findById(idToFind);
-        result.setFirstName("Marcos");
-        result.setLastName("Vinicius");
-        result.setAdress("Sao Paulo");
+        result.setFirstName("Michael");
+        result.setLastName("Johnson");
+        result.setAdress("Chicago");
         result.setGender("Male");
 
         assertNotNull(result);
-        assertEquals("Marcos", result.getFirstName());
-        assertEquals("Vinicius", result.getLastName());
-        assertEquals("Sao Paulo", result.getAdress());
-        assertEquals("Male", result.getGender()); // ok Atualizado
-
+        assertEquals("Michael", result.getFirstName());
+        assertEquals("Johnson", result.getLastName());
+        assertEquals("Chicago", result.getAdress());
+        assertEquals("Male", result.getGender()); // ok
         verify(personRepository, times(1)).findById(idToFind);
     }
-
-
-
-
-
-
 }
