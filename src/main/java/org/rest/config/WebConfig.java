@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        // choose response via QueryParam http://localhost:8080/api/person/v1?mediaType=xml
+        // choose response via QueryParam http://localhost:8080/api/Post/v1?mediaType=xml
         /*
         configurer.favorParameter(true)
                 .parameterName("mediaType").ignoreAcceptHeader(true)
