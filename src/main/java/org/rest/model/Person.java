@@ -36,15 +36,9 @@ public class Person implements Serializable{
 	private String gender;
 	
 	public Person() {
-		
+
 	}
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -69,8 +63,7 @@ public class Person implements Serializable{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public Person(Long id, String firstName, String lastName, String adress, String gender) {
-		this.id = id;
+	public Person( String firstName, String lastName, String adress, String gender) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.adress = adress;
