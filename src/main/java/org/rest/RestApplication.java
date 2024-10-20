@@ -10,24 +10,5 @@ public class RestApplication {
 
 		SpringApplication.run(RestApplication.class, args);
 
-
-		mySqlConecct banco = new mySqlConecct();
-		banco.connect();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		}
 }
