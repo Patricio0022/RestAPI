@@ -36,15 +36,16 @@ class CrudRepositoryTest {
 
     @BeforeEach
     public void setUp() {
+
         entity = new Person();
-        entity.setId(1L);
+        //id autoIncrement db = 1L
         entity.setFirstName("John");
         entity.setLastName("Doe");
         entity.setAdress("New York");
         entity.setGender("Male");
 
         person2 = new Person();
-        person2.setId(2L);
+        //id autoIncrement db = 2L
         person2.setFirstName("James");
         person2.setLastName("Smith");
         person2.setAdress("Los Angeles");
@@ -52,14 +53,15 @@ class CrudRepositoryTest {
 
 
         personV1 = new PersonVO();
-        personV1.setKey(1L);
+        //id autoIncrement db = 1L
         personV1.setFirstName("John");
         personV1.setLastName("Doe");
         personV1.setAdress("New York");
         personV1.setGender("Male");
 
+
         personV2 = new PersonVO();
-        personV2.setKey(2L);
+        //id autoIncrement db = 2L
         personV2.setFirstName("James");
         personV2.setLastName("Smith");
         personV2.setAdress("Los Angeles");
@@ -113,7 +115,6 @@ class CrudRepositoryTest {
 
         when(personRepository.save(any(Person.class))).thenAnswer(invocation -> { //id autoIncrement db
             Person savedEntity = invocation.getArgument(0);
-            savedEntity.setId(1L);
             return savedEntity;
         });
 
