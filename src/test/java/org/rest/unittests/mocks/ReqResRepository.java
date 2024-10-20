@@ -36,7 +36,6 @@ public class ReqResRepository {
     @BeforeEach
     public void setUp() {
         entity = new Person();
-        entity.setId(1L);
         entity.setFirstName("Pingu");
         entity.setLastName("Pingado");
         entity.setAdress("Alasca");
@@ -59,8 +58,10 @@ public class ReqResRepository {
             //  <--        Person convertida em DTO para a response client
             when(dozerMapper.parseObject(entity, PersonVO.class)).thenReturn(personV1);
             // save entity
-            when(personRepository.save(any(Person.class))).thenReturn(entity);
-
+            when(personRepository.save(any(Person.class))).thenAnswer(invocation -> {
+                        Person savedEntity = invocation.getArgument(0);
+                        return savedEntity;
+            });
 
             PersonVO result = personServices.create(personV1);
 
