@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*") //cors
-@RequestMapping("/api/person/v1")
+@RequestMapping(value = "/api/person/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "People", description = "Endpoints For Managing People") //swagger config
 public class PersonController {
 	
@@ -34,7 +34,6 @@ public class PersonController {
 
 	//Https verbs
 	@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
-
 	//swagger
 	@Operation(summary = "Finds A Person", description = "Finds A Person", tags = {"People"},
 		responses = {
