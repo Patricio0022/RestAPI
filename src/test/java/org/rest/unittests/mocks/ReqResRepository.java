@@ -7,71 +7,55 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.rest.data.vo.PersonVO;
+import org.rest.data.vo.PostVO;
 import org.rest.mapper.DozerMapper;
-import org.rest.model.Person;
-import org.rest.repository.PersonRepository;
-import org.rest.services.PersonServices;
+import org.rest.model.Post;
+import org.rest.repository.PostRepository;
+import org.rest.services.PostService;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
 public class ReqResRepository {
 
-
     @InjectMocks
-    private PersonServices personServices; //real injection
+    private PostService postService;
     @Mock
-    private PersonRepository personRepository; //behavior
+    private PostRepository postRepository;
     @Mock
-    private DozerMapper dozerMapper; //behavior
+    private DozerMapper dozerMapper;
 
-    private Person entity, person2;
-    private PersonVO personV1, personV2;
+    private Post entity;
+    private PostVO postVO;
 
     @BeforeEach
     public void setUp() {
-        entity = new Person();
-        entity.setFirstName("Pingu");
-        entity.setLastName("Pingado");
-        entity.setAdress("Alasca");
-        entity.setGender("Male");
+        entity = new Post();
+        entity.setId(1L);
+        entity.setTitle("Post Title");
+        entity.setBody("Post Body");
 
-
-        personV1 = new PersonVO();
-        personV1.setKey(1L);
-        personV1.setFirstName("Pingu");
-        personV1.setLastName("Pingado");
-        personV1.setAdress("Alasca");
-        personV1.setGender("Male");
+        postVO = new PostVO();
+        postVO.setKey(1L);
+        postVO.setTitle("Post Title");
+        postVO.setBody("Post Body");
     }
 
+    @Test
+    public void findById() {
+        when(postRepository.findById(1L)).thenReturn(java.util.Optional.of(entity));
 
-        @Test
-        public void create() {
-            //  -->        DTO frontend convertido em Person para o repository
-            when(dozerMapper.parseObject(any(PersonVO.class), eq(Person.class))).thenReturn(entity);
-            //  <--        Person convertida em DTO para a response client
-            when(dozerMapper.parseObject(entity, PersonVO.class)).thenReturn(personV1);
-            // save entity
-            when(personRepository.save(any(Person.class))).thenAnswer(invocation -> {
-                        Person savedEntity = invocation.getArgument(0);
-                        return savedEntity;
-            });
+        when(dozerMapper.parseObject(entity, PostVO.class)).thenReturn(postVO);
 
-            PersonVO result = personServices.create(personV1);
-
-            assertNotNull(result);
-
-            verify(personRepository, times(1)).save(any(Person.class));
-            verify(dozerMapper, times(1)).parseObject(any(PersonVO.class), eq(Person.class));
-            verify(dozerMapper, times(1)).parseObject(entity, PersonVO.class);
-        }
+        PostVO result = postService.findById(1L);
 
 
+        assertNotNull(result);
+        verify(postRepository, times(1)).findById(1L);
+        verify(dozerMapper, times(1)).parseObject(entity, PostVO.class);
     }
-
+}
