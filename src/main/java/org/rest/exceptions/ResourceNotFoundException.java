@@ -11,7 +11,7 @@ public class ResourceNotFoundException extends RuntimeException{
 	 */
 	private static final long serialVersionUID = 1L;
 	public ResourceNotFoundException(String ex) {
-		//Constructor with personalization message
+		//Constructor with Postalization message
 		super(ex); //class pai
 	}
 	
