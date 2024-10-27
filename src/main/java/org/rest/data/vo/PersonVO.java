@@ -1,5 +1,6 @@
 package org.rest.data.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
@@ -7,9 +8,10 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
-@JsonPropertyOrder({"id", "firstName", "lastName", "adress", "gender", "posts"})
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"id", "firstName", "lastName", "address", "gender", "posts"})
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,7 +24,8 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 	private String adress;
 	private String gender;
 
-	// Adicionando uma lista de PostVO
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private List<PostVO> posts;
 
 	public PersonVO() {}
