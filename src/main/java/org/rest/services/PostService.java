@@ -41,21 +41,18 @@ public class PostService {
         Post entity = postRepository.findById(id)
                 .orElseThrow(() -> {
                     logger.error("No records found for ID: {}", id);
-                    return new ResourceNotFoundException("No records found for this ID!");
+                    return new ResourceNotFoundException("No records found for this ID: " + id);
                 });
         logger.debug("Post found: {}", entity);
         return dozerMapper.parseObject(entity, PostVO.class);
     }
 
     public PostVO create(PostVO post) {
-        if (post == null) {
-            logger.error("Required object is null when trying to create Post");
-            throw new RequiredObjectIsNullException();
-        }
+        validatePost(post);
 
         if (!personRepository.existsById(post.getPerson().getKey())) {
             logger.error("No records found for person ID: {}", post.getPerson().getKey());
-            throw new ResourceNotFoundException("No records found for this person ID!");
+            throw new ResourceNotFoundException("No records found for this person ID: " + post.getPerson().getKey());
         }
 
         logger.info("Creating Post with title: {}", post.getTitle());
@@ -64,17 +61,13 @@ public class PostService {
     }
 
     public PostVO update(PostVO post) {
-        if (post == null) {
-            logger.error("Required object is null when trying to update Post");
-            throw new RequiredObjectIsNullException();
-        }
+        validatePost(post);
 
         logger.info("Updating Post with ID: {}", post.getKey());
-
         Post entity = postRepository.findById(post.getKey())
                 .orElseThrow(() -> {
                     logger.error("No records found for ID: {}", post.getKey());
-                    return new ResourceNotFoundException("No records found for this ID!");
+                    return new ResourceNotFoundException("No records found for this ID: " + post.getKey());
                 });
 
         entity.setTitle(post.getTitle());
@@ -88,9 +81,16 @@ public class PostService {
         Post entity = postRepository.findById(id)
                 .orElseThrow(() -> {
                     logger.error("No records found for ID: {}", id);
-                    return new ResourceNotFoundException("No records found for this ID!");
+                    return new ResourceNotFoundException("No records found for this ID: " + id);
                 });
         postRepository.delete(entity);
         logger.info("Post with ID: {} deleted successfully", id);
+    }
+
+    private void validatePost(PostVO post) {
+        if (post == null) {
+            logger.error("Required object is null when trying to create or update Post");
+            throw new RequiredObjectIsNullException("Post object cannot be null");
+        }
     }
 }

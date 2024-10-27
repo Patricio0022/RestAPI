@@ -1,59 +1,64 @@
 package org.rest.data.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
 import org.springframework.hateoas.RepresentationModel;
-
 import java.io.Serializable;
 import java.util.Objects;
 
-@JsonPropertyOrder({"id", "title", "body"})
-    public class PostVO extends RepresentationModel<org.rest.data.vo.PostVO> implements Serializable {
+@JsonPropertyOrder({"id", "title", "body", "person"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class PostVO extends RepresentationModel<PostVO> implements Serializable {
 
-        private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        @JsonProperty("id")
-        @Mapping("id")
-        private Long key;
-        private String title;
-        private String body;
+    @JsonProperty("id")
+    @Mapping("id")
+    private Long key;
 
-        private PersonVO person;
 
-        public PostVO() {}
+    private String title;
 
-        public Long getKey() {
-            return key;
-        }
+    private String body;
 
-        public void setKey(Long key) {
-            this.key = key;
-        }
+    private PersonVO person;
 
-        public String getTitle() {
-            return title;
-        }
+    public PostVO() {}
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
 
-        public String getBody() {
-            return body;
-        }
+    public Long getKey() {
+        return key;
+    }
 
-        public void setBody(String body) {
-            this.body = body;
-        }
+    public void setKey(Long key) {
+        this.key = key;
+    }
 
-        public PersonVO getPerson() {
-            return person;
-        }
+    public String getTitle() {
+        return title;
+    }
 
-        public void setPerson(PersonVO person) {
-            this.person = person;
-        }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public PersonVO getPerson() {
+        return person;
+    }
+
+    public void setPerson(PersonVO person) {
+        this.person = person;
+    }
 
     @Override
     public boolean equals(Object o) {
