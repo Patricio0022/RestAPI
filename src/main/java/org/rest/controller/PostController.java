@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.rest.data.vo.PostVO;
+import org.rest.exceptions.ResourceNotFoundException;
 import org.rest.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -44,10 +45,15 @@ public class PostController {
         return postService.findAll();
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<PostVO> findById(@PathVariable Long id) {
-        PostVO postVO = postService.findById(id);
-        return ResponseEntity.ok(postVO);
+        try {
+            PostVO postVO = postService.findById(id);
+            return ResponseEntity.ok(postVO);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
     @Operation(summary = "Adds a new post", description = "Adds a new post by passing in a JSON, XML or YML representation of the post!",
