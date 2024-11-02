@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/myapi?useTimezone=true&serverTimezone=UTC
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: none
+      properties:
+        hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    open-in-view: false
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+  main:
+    web-application-type: servlet
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+logging:
+  level:
+    org.springdoc: TRACE
+
+springdoc:
+  pathsToMatch: /api/**/v1/**
+  version: openapi_3_1
+  swagger-ui:
+    use-root-path: true

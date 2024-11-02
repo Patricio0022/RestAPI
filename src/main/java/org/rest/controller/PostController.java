@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*") // CORS
 @RequestMapping(value = "/api/post/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "post", description = "Endpoints for managing posts") // Swagger config
+
+
 public class PostController {
 
     @Autowired
