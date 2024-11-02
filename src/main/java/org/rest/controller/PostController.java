@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/post/v1", produces = MediaType.APPLICATION_JSON_VALUE)
-@Tag(name = "post", description = "Endpoints for managing posts") // Swagger config
+@Tag(name = "Post", description = "Endpoints for managing posts") // Swagger config
 
 
 public class PostController {
@@ -43,6 +43,13 @@ public class PostController {
 
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/{id}")
+    @Operation(summary = "Find a post by ID", description = "Retrieves a post by its ID", tags = {"Post"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = PostVO.class))),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
+            })
     public ResponseEntity<PostVO> findById(@PathVariable Long id) {
         try {
             PostVO postVO = postService.findById(id);
