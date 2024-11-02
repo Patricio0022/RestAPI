@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 @Schema(description = "Controller for managing persons")
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping(value = "/api/person/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "People", description = "Endpoints For Managing People")
 public class PersonController {
@@ -32,6 +31,7 @@ public class PersonController {
 	@Autowired
 	private PersonServices service;
 
+	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
 	@Operation(summary = "Finds All Persons", description = "Retrieves a list of all persons.", tags = {"People"},
 			responses = {
@@ -47,6 +47,8 @@ public class PersonController {
 		return service.findAll();
 	}
 
+
+	@CrossOrigin(origins = "http://localhost:8080")
 	@GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
 	@Operation(summary = "Find a Person by ID", description = "Retrieves a person by their ID.", tags = {"People"},
 			responses = {
@@ -62,6 +64,9 @@ public class PersonController {
 		return service.findById(id);
 	}
 
+
+
+	@CrossOrigin(origins = "http://localhost:8080")
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" },
 			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" })
 	@Operation(summary = "Adds a New Person", description = "Creates a new person by providing a JSON, XML or YML representation.", tags = {"People"},
@@ -77,6 +82,8 @@ public class PersonController {
 		return service.create(person);
 	}
 
+
+	@CrossOrigin(origins = "http://localhost:8080")
 	@PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" },
 			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml" })
 	@Operation(summary = "Updates a Person", description = "Updates a person by providing a JSON, XML or YML representation.", tags = {"People"},
@@ -93,6 +100,8 @@ public class PersonController {
 		return service.update(person);
 	}
 
+
+	@CrossOrigin(origins = "http://localhost:8080")
 	@DeleteMapping(value = "/{id}")
 	@Operation(summary = "Deletes a Person", description = "Deletes a person by their ID.", tags = {"People"},
 			responses = {
