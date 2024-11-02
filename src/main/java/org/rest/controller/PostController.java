@@ -25,14 +25,8 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @Operation(summary = "Test Endpoint", description = "This endpoint is for testing purposes.")
-    @ApiResponse(responseCode = "200", description = "Successful response")
-    @GetMapping("/get")
-    public String testEndpoint() {
-        return "Hello, this is a test endpoint!";
-    }
-
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:8080")
     @Operation(summary = "Find all posts", description = "Retrieves a list of all posts", tags = {"Post"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
@@ -47,6 +41,7 @@ public class PostController {
     }
 
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/{id}")
     public ResponseEntity<PostVO> findById(@PathVariable Long id) {
         try {
@@ -56,6 +51,8 @@ public class PostController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
     @Operation(summary = "Adds a new post", description = "Adds a new post by passing in a JSON, XML or YML representation of the post!",
             tags = {"Post"},
@@ -70,6 +67,8 @@ public class PostController {
         return postService.create(post);
     }
 
+
+    @CrossOrigin(origins = "http://localhost:8080")
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, "application/x-yaml"})
     @Operation(summary = "Updates a post", description = "Updates a post by passing in a JSON, XML or YML representation of the post!",
             tags = {"Post"},
@@ -85,6 +84,8 @@ public class PostController {
         return postService.update(post);
     }
 
+
+    @CrossOrigin(origins = "http://localhost:8080")
     @DeleteMapping(value = "/{id}")
     @Operation(summary = "Deletes a post", description = "Deletes a post by ID", tags = {"Post"},
             responses = {
